@@ -1,0 +1,140 @@
+﻿@model LayoutNhom08.Models.Hang
+
+@{
+    ViewBag.Title = "Sửa sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="chitiet">
+    @using (Html.BeginForm("Edit", "Sanpham", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.MaHang)
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    @{
+                        string ImagePath = "";
+                        if (Model.Anh != null) { ImagePath = "~/wwwroot/img/sanpham/" + Model.Anh; }
+                        else { ImagePath = "~/wwwroot/img/sanpham/no-image-news.png"; }
+                    }
+                    <img id="hienThiAnh" class="img-rounded" alt="Ảnh" width="180" 
+                         src="@Url.Content(@ImagePath)" />
+                    <p><label for="loadFile" style="cursor: pointer;">Chọn file ảnh</label></p>
+                    <input name="ImageFile" id="loadFile" type="file" style="display: none;" onchange="eventLoadFile(event)" />
+                    @Html.HiddenFor(model => model.Anh, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                <b>Tên hàng:</b>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.TenHang, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TenHang, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mt-2">
+                <b>Tên danh mục:</b>
+                <div class="col-md-12">
+                    @Html.DropDownList("MaDM", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MaDM, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mt-2">
+                <b>Thương hiệu:</b>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.ThuongHieu, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ThuongHieu, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mt-2">
+                <b> Loại xe: </b>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.LoaiXe, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LoaiXe, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mt-1">
+                <b>Giá tiền: </b>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.GiaTien, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GiaTien, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group mt-2">
+                <b>Màu sắc:</b>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MauSac, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MauSac, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mt-2">
+                <b>Số lượng: </b>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control", data_val_number = "Số sản phẩm phải là số !" } })
+                    @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="form-group mt-2">
+                <b> Mô tả hàng:</b>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MoTaHang, new { htmlAttributes = new { @class = "form-control", @cols = 35, @rows = 5 } })
+                    @Html.ValidationMessageFor(model => model.MoTaHang, "", new { @class = "text-danger" })
+                </div>
+                <br />
+            </div>
+            <div class="form-group mt-2">
+                <div class="col-md-offset-2 col-md-12 text-center">
+                    <button type="submit" class="btn btn-warning">
+                        Sửa
+                    </button> &nbsp; | &nbsp;
+
+                    @Html.ActionLink("Hủy", "Index")
+                </div>
+                <br />
+            </div>
+
+        </div>
+    }
+
+
+
+
+</div>
+
+<script>
+        var eventLoadFile = function (event) {
+
+            var file = document.getElementById("loadFile").value;
+            var ext = file.substring(file.lastIndexOf('.') + 1);
+            if (ext == "") return true;
+            if (ext == "gif" || ext == "GIF" || ext == "PNG" || ext == "png" || ext == "jpg" || ext == "JPG" || ext == "bmp" || ext == "BMP") {
+                var imagessssssss = document.getElementById('hienThiAnh');
+                imagessssssss.src = URL.createObjectURL(event.target.files[0]);
+                return true;
+            }
+            else {
+                document.getElementById("loadFile").value = null;
+                alert("Chỉ upload file ảnh!");
+                fup.focus();
+                return false;
+            }
+        };
+
+</script>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

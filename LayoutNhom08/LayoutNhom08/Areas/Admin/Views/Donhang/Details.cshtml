@@ -1,0 +1,95 @@
+﻿@model LayoutNhom08.Models.DonHang
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng #" +Model.MaDH;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<br />
+<div class="content2">
+    <div class="container">
+        <div class="row ">
+            <div class="col-7">
+                <b>Mã đơn hàng: </b>@Html.DisplayFor(model => model.MaDH) 
+            </div>
+            <div class="col-5">
+                <b>Khách hàng: </b> @Html.DisplayFor(model => model.TaiKhoan.HoTen) 
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-7">
+                <b>Ngày đặt hàng: </b> @Html.DisplayFor(model => model.NgayDat)
+            </div>
+            <div class="col-5">
+                <b>Địa chỉ giao hàng: </b> @Html.DisplayFor(model => model.DiaChiGiaoHang) 
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-7">
+                @{
+                    string tinhTrang = "";
+                    if (Model.TinhTrangDH == 1) { tinhTrang = "Đang giao"; }
+                    else if (Model.TinhTrangDH == 2) { tinhTrang = "Đã giao"; }
+                    else { tinhTrang = "Đã hủy"; }
+                }
+                <b>Trạng thái:</b> @tinhTrang
+            </div>
+            <div class="col-5">
+                <b>Số điện thoại:  </b>@Html.DisplayFor(model => model.TaiKhoan.SoDienThoai)
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="content2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-bordered table-center table-striped table-hover">
+                    <thead>
+                        <tr class="text-center">
+                            <th>#</th>
+                            <th>Ảnh</th>
+                            <th>Tên tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Tiền </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < ViewBag.SanPhams.Count; i++)
+                        {
+                            <tr class="text-center" style="text-align: center;">
+                                <td style="text-align: center;"> @ViewBag.SanPhams[i].MaHang</td>
+                                <td>
+                                    @{
+                                        string ImagePath = "";
+                                        if (ViewBag.SanPhams[i].Anh != null) { ImagePath = "~/wwwroot/img/sanpham/" + ViewBag.SanPhams[i].Anh; }
+                                        else { ImagePath = "~/wwwroot/img/sanpham/no-image-news.png"; }
+                                    }
+                                    <img src="@Url.Content(ImagePath)" width="60" class="img-thumbnail" />
+                                    <br />
+                                </td>
+                                <td style="text-align: center;"> @ViewBag.SanPhams[i].TenHang</td>
+                                <td style="text-align: center;">@ViewBag.ChiTietDH[i].SoLuongDat </td>
+
+                                <td style="text-align: center;"> @string.Format("{0:#,##}", ViewBag.SanPhams[i].GiaTien * @ViewBag.ChiTietDH[i].SoLuongDat) VND</td>
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-9"></div>
+            <div class="col-3"> <b>Tổng tiền: </b>Đang tính.....  </div>
+        </div>
+        <div class="row mb-2 mt-5">
+            <div class="col-12 text-center">
+                @Html.ActionLink("Quay lại", "Index")
+            </div>
+        </div>
+    </div>
+</div>
