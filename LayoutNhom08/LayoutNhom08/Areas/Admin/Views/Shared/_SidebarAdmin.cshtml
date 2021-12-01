@@ -1,0 +1,49 @@
+﻿<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active": "" )" href="@Url.Action("Index","Home")">
+                <i class="bi bi-grid"></i>
+                <span>Thống kê</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "DanhmucSanpham" ? "active": "" ) " href="@Url.Action("Index","DanhmucSanpham")">
+                <i class="bi bi-folder2-open"></i>
+                <span>Quản lý danh mục</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Sanpham" ? "active": "" ) " href="@Url.Action("Index","Sanpham")">
+                <i class="bi bi-box-seam"></i>
+                <span>Quản lý sản phẩm</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Donhang" ? "active": "" ) " href="@Url.Action("Index","Donhang")">
+                <i class="bi bi-bag"></i>
+                <span>Quản lý đơn hàng</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @((ViewContext.RouteData.Values["Controller"].ToString() == "Taikhoan" && ViewContext.RouteData.Values["Action"].ToString() == "Index" )   ? "active": "" ) " href="@Url.Action("Index","Taikhoan")">
+                <i class="bi bi-person-circle"></i>
+                <span>Quản lý tài khoản</span>
+            </a>
+        </li>
+
+
+
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link @(ViewContext.RouteData.Values["Action"].ToString() == "ThongtinDangnhap" ? "active": "" ) " href="@Url.Action("ThongtinDangnhap","Taikhoan")">
+                <i class="bi bi-file-earmark"></i>
+                <span>Thông tin</span>
+            </a>
+        </li><!-- End Blank Page Nav -->
+
+    </ul>
+
+</aside>

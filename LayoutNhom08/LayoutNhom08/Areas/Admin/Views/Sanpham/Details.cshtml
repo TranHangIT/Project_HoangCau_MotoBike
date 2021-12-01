@@ -1,0 +1,103 @@
+﻿@model LayoutNhom08.Models.Hang
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="chitiet2">
+    <div class="container">
+        <div class="row ">
+            <div class="col-12 text-center">
+                @{
+                    string ImagePath = "";
+                    if (Model.Anh != null) { ImagePath = "~/wwwroot/img/sanpham/" + Model.Anh; }
+                    else { ImagePath = "~/wwwroot/img/sanpham/no-image-news.png"; }
+                }
+                <img src="@Url.Content(ImagePath)" width="200" class="img-thumbnail" />
+                <br />
+                @Html.HiddenFor(modelItem => Model.Anh)
+
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-4 text-center">
+                <b> Mã sản phẩm:</b>
+            </div>
+            <div class="col-8 text-left">
+                @Html.DisplayFor(model => model.MaHang)
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-4 text-center">
+                <b> Tên sản phẩm:</b>
+            </div>
+            <div class="col-8 text-left">
+                @Html.DisplayFor(model => model.TenHang)
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-4 text-center">
+                <b> Tên danh mục:</b>
+            </div>
+            <div class="col-8 text-left">
+                @Html.DisplayFor(model => model.DanhMuc.TenDM)
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-4 text-center">
+                <b> Thương hiệu:</b>
+            </div>
+            <div class="col-8 text-left">
+                @Html.DisplayFor(model => model.ThuongHieu)
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-4 text-center">
+                <b> Loại xe:</b>
+            </div>
+            <div class="col-8 text-left">
+                @Html.DisplayFor(model => model.LoaiXe)
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-4 text-center">
+                <b> Giá tiền:</b>
+            </div>
+            <div class="col-8 text-left">
+                @Html.DisplayFor(model => model.GiaTien)
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-4 text-center">
+                <b> Màu sắc:</b>
+            </div>
+            <div class="col-8 text-left">
+                @Html.DisplayFor(model => model.MauSac)
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-4 text-center">
+                <b> Số lượng:</b>
+            </div>
+            <div class="col-8 text-left">
+                @Html.DisplayFor(model => model.MaHang)
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-4 text-center">
+                <b>Mô tả sản phẩm:</b>
+            </div>
+            <div class="col-8 text-left">
+                @Html.DisplayFor(model => model.MoTaHang)
+            </div>
+        </div>
+        <div class="row mt-5 mb-3">
+            <div class="col-12 text-center">
+                @Html.ActionLink("Quay lại", "Index")
+            </div>
+        </div>
+    </div>
+</div>
+

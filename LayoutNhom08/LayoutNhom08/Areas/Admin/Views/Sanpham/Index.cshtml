@@ -1,0 +1,68 @@
+﻿@model IEnumerable<LayoutNhom08.Models.Hang>
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@section CSSPartial{
+    <link href="~/Areas/Admin/Assets/css/table.css" rel="stylesheet">
+}
+
+    <div class="row">
+        <div class="col-lg-12 mb-2 ">
+            <button type="button" class="btn btn-success">
+                <a href="@Url.Action("Create","Sanpham")" style="color:white;">
+                    <i class="bi bi-plus-square-dotted"></i>
+                    Thêm sản phẩm
+                </a>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-bordered table-center table-striped table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>Mã sản phẩm</th>
+                        <th>Ảnh</th>
+                        <th>Tên tên sản phẩm</th>
+                        <th>Tên danh mục</th>
+                        <th>Số lượng còn</th>
+                        <th colspan="3">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center" style="text-align: center;">
+                            <td style="text-align: center;"> @Html.DisplayFor(modelItem => item.MaHang)</td>
+                            <td>
+                                @{
+                                    string ImagePath = "";
+                                    if (item.Anh != null) { ImagePath = "~/wwwroot/img/sanpham/" + item.Anh; }
+                                    else { ImagePath = "~/wwwroot/img/sanpham/no-image-news.png"; }
+                                }
+                                <img src="@Url.Content(ImagePath)" width="60" class="img-thumbnail" />
+                                <br />
+                                @Html.HiddenFor(modelItem => item.Anh)
+                            </td>
+                            <td style="text-align: center;">@Html.DisplayFor(modelItem => item.TenHang)</td>
+                            <td style="text-align: center;"> @Html.DisplayFor(modelItem => item.DanhMuc.TenDM)</td>
+                            <td style="text-align: center;">@Html.DisplayFor(modelItem => item.SoLuong)</td>
+                            <td title="Xem chi tiết" class="see-details"><a href="@Url.Action("Details","Sanpham",new {id = item.MaHang})"><i class="bi bi-eye-fill"></i></a></td>
+                            <td title="Sửa sản phẩm" class="edit"><a href="@Url.Action("Edit","Sanpham",new {id = item.MaHang})"><i class="bi bi-pencil-fill"></i></a></td>
+                            <td title="Xóa sản phẩm" class="remove"><a href="@Url.Action("Delete","Sanpham",new {id = item.MaHang})"><i class="bi bi-trash-fill"></i></a></td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+

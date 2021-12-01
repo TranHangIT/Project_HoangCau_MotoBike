@@ -1,0 +1,95 @@
+﻿@model LayoutNhom08.Models.DonHang
+
+@{
+    ViewBag.Title = "Sửa tình trạng đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<br />
+
+<div class="chitiet" style="width: 450px !important">
+    @using (Html.BeginForm("Edit", "Donhang", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MaTK)
+
+        <div class="form-group">
+            <b>Mã đơn hàng:</b>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.MaDH, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.MaDH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group mt-2">
+            <b>Tên khách hàng:</b>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.TaiKhoan.HoTen, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.MaDH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group mt-2">
+            <b>Địa chỉ:</b>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.DiaChiGiaoHang, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.MaDH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group mt-2">
+            <b>Ngày đặt:</b>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.NgayDat, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.MaDH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group mt-2">
+
+            <div class="col-md-12">
+                <b>Tổng tiền:</b>
+                @{
+                    ViewBag.hoa = 1000000;
+                }
+                @ViewBag.hoa VND
+            </div>
+        </div>
+        <div class="form-group mt-4">
+            <b>Tình trạng đơn hàng:</b>
+            <div class="col-md-12">
+                <select id="TinhTrang" name="TinhTrang" class="form-control">
+                    @for (int i = 1; i <= ViewBag.TinhTrangDH.Count; i++)
+                    {
+                        if (@Model.TinhTrangDH == i)
+                        {
+                            <option value="@i" selected>@ViewBag.TinhTrangDH[i - 1]</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@ViewBag.TinhTrangDH[i - 1]</option>
+                        }
+
+                    }
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group mt-5">
+            <div class="col-md-offset-2 col-md-12 text-center">
+                <button type="submit" class="btn btn-warning">
+                    Sửa
+                </button> &nbsp; | &nbsp;
+
+                @Html.ActionLink("Hủy", "Index")
+            </div>
+            <br />
+        </div>
+
+    </div>
+    }
+</div>
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
